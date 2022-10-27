@@ -1,0 +1,5 @@
+SELECT * FROM Produto;
+
+ROLLBACK TO SAVEPOINT Tra03;
+
+SELECT * FROM Produto;
