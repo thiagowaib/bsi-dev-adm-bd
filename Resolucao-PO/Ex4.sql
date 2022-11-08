@@ -18,14 +18,14 @@ BEGIN
     -- Busca a conta corrente com base no numero_cc
     SELECT count(*) INTO count_cc FROM conta_corrente WHERE numero_conta = numero_cc;
     
-    IF count_cc != 1 THEN /* O numero_cc (parâmetro) não corresponde à nenhuma conta corrente */
+    IF count_cc <> 1 THEN /* O numero_cc (parâmetro) não corresponde à nenhuma conta corrente */
         err_table := 'movimento';
         err_code := -20104;
         err_msg := 'Conta corrente não encontrada via numero de conta';
         INSERT INTO erros (tabela, codigo, mensagem) VALUES (err_table, err_code, err_msg);
         COMMIT;
         raise_application_error(err_code, err_msg);
-    ELSIF tipo != 'C' AND tipo != 'D' THEN /* O tipo (parâmetro) não é C(Crédito) ou D(Débito) */
+    ELSIF tipo <> 'C' AND tipo <> 'D' THEN /* O tipo (parâmetro) não é C(Crédito) ou D(Débito) */
         err_table := 'movimento';
         err_code := -20105;
         err_msg := 'O tipo precisa ser `C` (Crédito) ou `D` (Débito)';
